@@ -1,6 +1,7 @@
-# OrchFlow
-Orquestrador para múltiplos controladores OpenFlow
+# OrcFlow
 
-O objetivo deste trabalho é propor o uso de um software orquestrador para o aprovisionamento de serviços em redes definidas por software com múltiplos controladores OpenFlow, proporcionando ao administrador da rede uma visão global de seu domínio administrativo e um controle total das ações, independentemente de quantos e quais controladores serão utilizados. O OrchFlow permite, portanto, que os serviços fim a fim dentro do domínio administrativo continuem sendo fornecidos, assim como, serviços exclusivos podem ser criados para cada subdomínio.
+Orcflow é um fork do projeto marcelofrate/OrchFlow, sendo trabalhado como requisito para matéria de Administração de redes no IFSP Câmpus Boituva.
 
-Assista ao vídeo de demonstração de uso do OrchFlow em: https://youtu.be/HFfEgaf0Hbs
+O objetivo do fork é melhorar e acrescentar novas funcionalidades ao projeto, trazendo assim maior conhecimento e uso por parte da comunidade de software.
+
+O repositório original pode ser acessado clicando [https://github.com/marcelofrate/OrchFlow](aqui).
