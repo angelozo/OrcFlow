@@ -1,54 +1,54 @@
 package modelos;
 
 public class LinkData {
-	private String srcS, dstS, type, direction;
-	private int srcP, dstP;
+    private String srcS, dstS, type, direction;
+    private int srcP, dstP;
 
-	public String getSrcS() {
-		return srcS;
-	}
+    public String getSrcS() {
+        return srcS;
+    }
 
-	public void setSrcS(String srcS) {
-		this.srcS = srcS;
-	}
+    public void setSrcS(String srcS) {
+        this.srcS = srcS;
+    }
 
-	public int getSrcP() {
-		return srcP;
-	}
+    public int getSrcP() {
+        return srcP;
+    }
 
-	public void setSrcP(int srcP) {
-		this.srcP = srcP;
-	}
+    public void setSrcP(int srcP) {
+        this.srcP = srcP;
+    }
 
-	public String getDstS() {
-		return dstS;
-	}
+    public String getDstS() {
+        return dstS;
+    }
 
-	public void setDstS(String dstS) {
-		this.dstS = dstS;
-	}
+    public void setDstS(String dstS) {
+        this.dstS = dstS;
+    }
 
-	public int getDstP() {
-		return dstP;
-	}
+    public int getDstP() {
+        return dstP;
+    }
 
-	public void setDstP(int dstP) {
-		this.dstP = dstP;
-	}
+    public void setDstP(int dstP) {
+        this.dstP = dstP;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getDirection() {
-		return direction;
-	}
+    public String getDirection() {
+        return direction;
+    }
 
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 }
