@@ -263,7 +263,7 @@ public class Reactive implements IOFMessageListener, IFloodlightModule {
 //			@Override
 //			public void run() {
 				try {
-					String url = "http://localhost:8081/OrchFlow/api/hibrido";
+					String url = "http://localhost:8081/OrcFlow/api/hibrido";
 					URL obj = new URL(url);
 					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 

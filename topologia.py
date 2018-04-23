@@ -66,7 +66,7 @@ def topology():
     net.addLink(s2, s5, 3, 1)
     net.addLink(s3, s6, 2, 1)
     net.addLink(s3, s7, 3, 1)
- 
+
     net.addLink(s8, s9, 1, 1)
     net.addLink(s8, s10, 2, 1)
     net.addLink(s9, s11, 2, 1)
@@ -161,10 +161,3 @@ if __name__ == '__main__':
     setLogLevel( 'info' )
 
     topology()
-
-
-
-
-
-
-
