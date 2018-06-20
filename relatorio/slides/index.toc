@@ -1,0 +1,7 @@
+\babel@toc {brazil}{}
+\beamer@sectionintoc {1}{Introdu\IeC {\c c}\IeC {\~a}o}{2}{0}{1}
+\beamer@sectionintoc {2}{Docker e cont\IeC {\^e}ineres}{3}{0}{2}
+\beamer@sectionintoc {3}{Receptibilidade de desenvolvedores}{4}{0}{3}
+\beamer@sectionintoc {4}{Acoplamento de configura\IeC {\c c}\IeC {\~o}es}{5}{0}{4}
+\beamer@sectionintoc {5}{Padr\IeC {\~o}es de nomea\IeC {\c c}\IeC {\~a}o}{6}{0}{5}
+\beamer@sectionintoc {6}{Problemas com separa\IeC {\c c}\IeC {\~a}o de camadas}{7}{0}{6}

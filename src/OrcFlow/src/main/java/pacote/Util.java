@@ -12,12 +12,14 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import modelos.RegrasData;
+import models.RegrasData;
+
+import config.NEO4J_CONFIG;
 
 public class Util {
     public static int i = 0;
     private static String passwd = "Basic bmVvNGo6b3JjaGZsb3c=";
-    private static String SERVER_ROOT_URI = "http://localhost:7474/db/data/";
+    private static String SERVER_ROOT_URI = NEO4J_CONFIG.DSN + "/db/data/";
 
     public static String generateJsonDijkstra(URI endNode) {
         StringBuilder sb = new StringBuilder();
@@ -38,8 +40,6 @@ public class Util {
         // POST JSON to the relationships URI
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .entity(dijkstraJson).header("Authorization", passwd).post(ClientResponse.class);
-
-        System.out.println(String.format("POST to [%s], status code [%d]", fromUri, response.getStatus()));
 
         StringBuilder result = new StringBuilder("Caminho não encontrado");
         JSONArray paths = new JSONArray(response.getEntity(String.class));
@@ -62,8 +62,6 @@ public class Util {
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .header("Authorization", passwd).get(ClientResponse.class);
 
-        System.out.println(String.format("GET to [%s], status code [%d]", link, response.getStatus()));
-
         JSONObject entity = new JSONObject(response.getEntity(String.class));
 
         response.close();
@@ -77,8 +75,6 @@ public class Util {
         // POST JSON to the relationships URI
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .header("Authorization", passwd).get(ClientResponse.class);
-
-        System.out.println(String.format("POST to [%s], status code [%d]", fromUri, response.getStatus()));
 
         JSONObject entity = new JSONObject(response.getEntity(String.class));
         JSONObject data = new JSONObject(entity.get("data").toString());
@@ -102,8 +98,6 @@ public class Util {
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .header("Authorization", passwd).get(ClientResponse.class);
 
-        System.out.println(String.format("GET to [%s], status code [%d]", fromUri, response.getStatus()));
-
         URI location = null;
         String entity = response.getEntity(String.class);
         if (entity.substring(0, 1).equals("[")) {
@@ -125,11 +119,6 @@ public class Util {
                     WebResource resource = Client.create().resource(fromUri);
                     ClientResponse response = resource.accept(MediaType.APPLICATION_JSON)
                         .type(MediaType.APPLICATION_JSON).entity(json).post(ClientResponse.class);
-
-                    if (response.getStatus() == 200) {
-                        System.out.println(
-                            String.format("POST to [%s], status code [%d]", fromUri, response.getStatus()));
-                    }
 
                     response.close();
                 } catch (Exception e) {
@@ -347,11 +336,6 @@ public class Util {
         sb.append(rD.getIpv4_dst());
         sb.append("\"");
 
-        // sb.append(", \"dl-type\":");
-        // sb.append("\"");
-        // sb.append("0x0806");
-        // sb.append("\"");
-
         sb.append(", \"cookie\":");
         sb.append("\"");
         sb.append(rD.getCookie());
@@ -475,7 +459,6 @@ public class Util {
         sb.append("\"");
         sb.append("}");
 
-        System.out.println(sb.toString());
         return sb.toString();
     }
 }

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  floodlight:
+    build:
+      dockerfile: ./docker/floodlight/Dockerfile
+      context: .
+    ports:
+      - "8085:8080"

@@ -10,11 +10,13 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import modelos.SwitchData;
+import models.SwitchData;
+
+import config.NEO4J_CONFIG;
 
 public class Neo4jNodes {
-    private static String passwd = "Basic YW5nZWxvOmFuZ2Vsbw==";
-    public static String SERVER_ROOT_URI = "http://localhost:7474/db/data/";
+    private static String passwd = NEO4J_CONFIG.KEY;
+    public static String SERVER_ROOT_URI = NEO4J_CONFIG.DSN;
 
     public SwitchData nodes(SwitchData swD) {
         swD.setLocation(createNode(swD));
@@ -32,23 +34,11 @@ public class Neo4jNodes {
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .entity(createJson).header("Authorization", passwd).post(ClientResponse.class);
 
-        if (response.getStatus() == 201) {
-            // final URI location = response.getLocation();
-            // System.out.println(String.format("POST to [%s], status code [%d],
-            // location header [%s]", nodeEntryPointUri,
-            // response.getStatus(), location.toString()));
+        JSONObject entity = new JSONObject(response.getEntity(String.class));
+        String uri = entity.get("self").toString();
+        response.close();
 
-            JSONObject entity = new JSONObject(response.getEntity(String.class));
-            String uri = entity.get("self").toString();
-            response.close();
-
-            return URI.create(uri);
-        } else {
-            // System.out
-            // .println(String.format("POST to [%s], status code [%d]",
-            // nodeEntryPointUri, response.getStatus()));
-            // System.exit(0);
-        }
+        return URI.create(uri);
 
         return null;
     }
@@ -91,11 +81,6 @@ public class Neo4jNodes {
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .entity("\"" + label + "\"").header("Authorization", passwd).post(ClientResponse.class);
 
-        // System.out.println(String.format("PUT to [%s], status code [%d]",
-        // propertyUri, response.getStatus()));
-        if (response.getStatus() == 404) {
-            // System.exit(0);
-        }
         response.close();
 
     }

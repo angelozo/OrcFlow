@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import controladores.ReactiveRoute2;
+import NetworkControllers.ReactiveRoute2;
 
 @Path("/hibrido")
 public class Hibrido {
@@ -25,7 +25,6 @@ public class Hibrido {
             if (tempoEspera == null || System.currentTimeMillis() > tempoEspera.longValue() + 60000) {
                 tabRegra.remove(nome);
                 tabRegra.put(nome, new Long(System.currentTimeMillis()));
-                System.out.println("post");
                 ReactiveRoute2.aplicar(nome);
             }
         } catch (Exception e) {

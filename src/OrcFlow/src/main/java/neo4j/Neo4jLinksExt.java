@@ -20,13 +20,15 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import modelos.LinkExtData;
-import modelos.SwitchData;
+import models.LinkExtData;
+import models.SwitchData;
+
+import config.NEO4J_CONFIG;
 
 @ManagedBean
 public class Neo4jLinksExt {
-    private static String passwd = "Basic YW5nZWxvOmFuZ2Vsbw==";
-    public static String SERVER_ROOT_URI = "http://localhost:7474/db/data/";
+    private static String passwd = NEO4J_CONFIG.KEY;
+    public static String SERVER_ROOT_URI = NEO4J_CONFIG.DSN;
 
     public void links(ArrayList < SwitchData > arraySWD, ArrayList < LinkExtData > arrayLED) throws URISyntaxException {
 
@@ -68,15 +70,9 @@ public class Neo4jLinksExt {
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .entity(relationshipJson).header("Authorization", passwd).post(ClientResponse.class);
 
-        if (response.getStatus() == 201) {
-            final String location = response.getLocation().toString();
-            System.out.println(String.format("POST to [%s], status code [%d], location header [%s]", fromUri,
-                response.getStatus(), location));
-            response.close();
-        } else {
-            System.out.println(String.format("POST to [%s], status code [%d]", fromUri, response.getStatus()));
-            // System.exit(0);
-        }
+        final String location = response.getLocation().toString();
+
+        response.close();
     }
 
     private static String generateJsonRelationship(URI startNode, URI endNode, LinkExtData src, LinkExtData dst,

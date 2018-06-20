@@ -15,13 +15,15 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import modelos.HostData;
-import modelos.SwitchData;
+import models.HostData;
+import models.SwitchData;
+
+import config.NEO4J_CONFIG;
 
 @ManagedBean
 public class Neo4jHosts {
-    private static String passwd = "Basic YW5nZWxvOmFuZ2Vsbw==";
-    public static String SERVER_ROOT_URI = "http://localhost:7474/db/data/";
+    private static String passwd = NEO4J_CONFIG.KEY;
+    public static String SERVER_ROOT_URI = NEO4J_CONFIG.DSN;
     private static Map < String, String > hosts = new TreeMap < String, String > ();
 
     public void hosts(ArrayList < SwitchData > arraySWD, HostData hostD) throws URISyntaxException {
@@ -58,21 +60,11 @@ public class Neo4jHosts {
             .entity(createJson).header("Authorization", passwd).post(ClientResponse.class);
 
         if (response.getStatus() == 201 || response.getStatus() == 200) {
-            // final URI location = response.getLocation();
-            // System.out.println(String.format("POST to [%s], status code [%d],
-            // location header [%s]", nodeEntryPointUri,
-            // response.getStatus(), location.toString()));
-
             JSONObject entity = new JSONObject(response.getEntity(String.class));
             String uri = entity.get("self").toString();
             response.close();
 
             return URI.create(uri);
-        } else {
-            // System.out
-            // .println(String.format("POST to [%s], status code [%d]",
-            // nodeEntryPointUri, response.getStatus()));
-            // System.exit(0);
         }
 
         return null;
@@ -112,11 +104,6 @@ public class Neo4jHosts {
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .entity("\"" + label + "\"").header("Authorization", passwd).post(ClientResponse.class);
 
-        // System.out.println(String.format("PUT to [%s], status code [%d]",
-        // propertyUri, response.getStatus()));
-        if (response.getStatus() == 404) {
-            // System.exit(0);
-        }
         response.close();
     }
 
@@ -131,15 +118,7 @@ public class Neo4jHosts {
             .entity(relationshipJson).header("Authorization", passwd).post(ClientResponse.class);
 
         if (response.getStatus() == 201) {
-            // final String location = response.getLocation().toString();
-            // System.out.println(String.format("POST to [%s], status code [%d],
-            // location header [%s]", fromUri,
-            // response.getStatus(), location));
             response.close();
-        } else {
-            // System.out.println(String.format("POST to [%s], status code
-            // [%d]", fromUri, response.getStatus()));
-            // System.exit(0);
         }
 
     }

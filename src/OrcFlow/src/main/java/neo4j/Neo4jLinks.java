@@ -19,12 +19,14 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import modelos.LinkData;
-import modelos.SwitchData;
+import models.LinkData;
+import models.SwitchData;
+
+import config.NEO4J_CONFIG;
 
 public class Neo4jLinks {
-    private static String passwd = "Basic YW5nZWxvOmFuZ2Vsbw==";
-    public static String SERVER_ROOT_URI = "http://localhost:7474/db/data/";
+    private static String passwd = NEO4J_CONFIG.DSN;
+    public static String SERVER_ROOT_URI = NEO4J_CONFIG.KEY;
 
     public void links(ArrayList < SwitchData > arraySWD, LinkData linkD) throws URISyntaxException {
         URI nodeSRC = null, nodeDST = null;
@@ -55,16 +57,9 @@ public class Neo4jLinks {
         ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
             .entity(relationshipJson).header("Authorization", passwd).post(ClientResponse.class);
 
-        if (response.getStatus() == 201) {
-            final String location = response.getLocation().toString();
-            System.out.println(String.format("POST to [%s], status code [%d], location header [%s]", fromUri,
-                response.getStatus(), location));
-            response.close();
-        } else {
-            System.out.println(String.format("POST to [%s], status code [%d]", fromUri, response.getStatus()));
-            // System.exit(0);
-        }
+        final String location = response.getLocation().toString();
 
+        response.close();
     }
 
     private static String generateJsonRelationship(URI startNode, URI endNode, LinkData linkD,
@@ -76,8 +71,7 @@ public class Neo4jLinks {
 
             sb.append("'value' : '");
             sb.append(linkD.getSrcS() + linkD.getSrcP() + linkD.getDstS() + linkD.getDstP());
-            System.out
-                .println(linkD.getSrcS() + " | " + linkD.getSrcP() + " | " + linkD.getDstS() + " | " + linkD.getDstP());
+
             sb.append("', ");
 
             sb.append(" 'start' : '");
